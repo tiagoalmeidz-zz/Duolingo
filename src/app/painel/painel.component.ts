@@ -19,7 +19,9 @@ export class PainelComponent implements OnInit {
   public rodadaFrase: Frase
 
   public progresso: number = 0
-  
+
+  public tentativas: number = 3
+
   constructor() { 
     this.atualizaRodada()
   }
@@ -32,9 +34,7 @@ export class PainelComponent implements OnInit {
   }
 
   verificarResposta(): void {
-
     if (this.rodadaFrase.FrasePT == this.resposta) {
-      alert('A tradução está correta')
 
       //trocar pergunta da  rodada
       this.rodada++
@@ -42,11 +42,20 @@ export class PainelComponent implements OnInit {
       //progresso
       this.progresso = this.progresso + (100/this.frases.length)
 
+      //
+      if(this.rodada === 4) {
+        alert('Parabéns, Concluiu as traduções com sucesso!')
+      }
       //atualiza o objeto da rodadaFrase
       this.atualizaRodada()
 
     } else {
-      alert('A tradução está errada')
+      this.tentativas--
+      //alert('A tradução está errada')
+      
+      if(this.tentativas === -1)
+        alert('Você perdeu todas as tentativas')
+
     }
   }
 
