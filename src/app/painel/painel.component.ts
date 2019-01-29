@@ -1,15 +1,14 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 
 import { Frase } from '../shared/frase.model'
 import { FRASES } from './frases-mock'
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-painel',
   templateUrl: './painel.component.html',
   styleUrls: ['./painel.component.css']
 })
-export class PainelComponent implements OnInit {
+export class PainelComponent implements OnInit, OnDestroy {
 
   public frases: Frase[] = FRASES
   public instrucao: string = 'Traduza a frase:'
@@ -29,6 +28,9 @@ export class PainelComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
   }
 
   public atualizaResposta(resposta: Event): void {
@@ -56,7 +58,7 @@ export class PainelComponent implements OnInit {
       //alert('A tradução está errada')
       
       if(this.tentativas === -1)
-        this.encerrarJogo.emit('vitoria')
+        this.encerrarJogo.emit('derrota')
 
     }
   }
